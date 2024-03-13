@@ -1,4 +1,8 @@
 {
+  "tabs": [
+    "number of sales",
+    "total premium"
+  ],
   "brandFilterOptions": [
     "Pi",
     "Stone Island"

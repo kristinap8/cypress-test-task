@@ -25,11 +25,13 @@ class Page {
     }
 
     hoverElement(locator: string) {
-        this.getElement(locator).realHover({ position: "center" });
-        this.getElement(locator).realHover({ position: "right" });
+        this.getElement(locator).realHover({ position: 'center' });
+        this.getElement(locator).realHover({ position: 'left'});
     }
 
-
+    reload() {
+        cy.reload();
+    }
 }
 
 export default Page;
