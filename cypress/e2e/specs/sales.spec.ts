@@ -58,29 +58,30 @@ describe("Check the functionality of the sales tab", () => {
                 }
             }
         });
+
+        it(`Сheck if filters with query params are applied after page reload in the ${chart} chart`, () => {
+            if (chart === 'Total Premium') salesPage.clickTotalPremiumTabBtn();
+            cy.wait(1000);
+
+            const brandQueryParamBeforeReload = salesPage.getQueryParam('brand');
+            const yearQueryParamBeforeReload = salesPage.getQueryParam('year');
+            const brandSelectedOptionBeforeReload = salesPage.getBrandSelectedOption();
+            const yearSelectedOptionBeforeReload = salesPage.getYearSelectedOption();
+
+            salesPage.reloadSalesPage();
+
+            salesPage.getQueryParam('brand').then((brandParam) => {
+                brandQueryParamBeforeReload.should('eq', brandParam);
+            });
+            salesPage.getQueryParam('year').then((yearParam) => {
+                yearQueryParamBeforeReload.should('eq', yearParam);
+            });
+            salesPage.getBrandSelectedOption().then((brandParam) => {
+                brandSelectedOptionBeforeReload.should('eq', brandParam);
+            });
+            salesPage.getYearSelectedOption().then((yearParam) => {
+                yearSelectedOptionBeforeReload.should('eq', yearParam);
+            });
+        })
     }
-
-    it("check if filters with query params are applied after page reload", () => {
-        cy.wait(1000);
-
-        const brandQueryParamBeforeReload = salesPage.getQueryParam('brand');
-        const yearQueryParamBeforeReload = salesPage.getQueryParam('year');
-        const brandSelectedOptionBeforeReload = salesPage.getBrandSelectedOption();
-        const yearSelectedOptionBeforeReload = salesPage.getYearSelectedOption();
-
-        salesPage.reloadSalesPage();
-
-        salesPage.getQueryParam('brand').then((brandParam) => {
-            brandQueryParamBeforeReload.should('eq', brandParam);
-        });
-        salesPage.getQueryParam('year').then((yearParam) => {
-            yearQueryParamBeforeReload.should('eq', yearParam);
-        });
-        salesPage.getBrandSelectedOption().then((brandParam) => {
-            brandSelectedOptionBeforeReload.should('eq', brandParam);
-        });
-        salesPage.getYearSelectedOption().then((yearParam) => {
-            yearSelectedOptionBeforeReload.should('eq', yearParam);
-        });
-    })
 });

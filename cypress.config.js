@@ -16,6 +16,7 @@ module.exports = defineConfig({
   env: { ...process.env },
   e2e: {
     setupNodeEvents(on, config) {
+      require('cypress-mochawesome-reporter/plugin')(on);
     },
     baseUrl: 'https://dev-admin.grace-technology.io/',
     specPattern: 'cypress/e2e/specs/*.spec.ts',

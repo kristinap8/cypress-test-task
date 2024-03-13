@@ -1,7 +1,7 @@
 class Page {
 
-    open(url?: string) {
-        cy.visit(url == undefined ? '/' : url);
+    open(url: string = '/') {
+        cy.visit(url);
     }
 
     getElement(locator: string, timeout: number=60000) {
