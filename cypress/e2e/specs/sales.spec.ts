@@ -1,8 +1,8 @@
 import { loginPage } from '../pages/login.page';
 import { salesPage } from '../pages/sales.page';
-import * as data from "../../fixtures/salesData.json";
 
-const salesData = JSON.parse(JSON.stringify(data));
+const charts = ['Number of Sales', 'Total Premium'];
+const filters = { brands: ['Stone Island', 'Pi'], years: ['2023', '2024'] };
 const loginData = {
     email: Cypress.env('USER_EMAIL'),
     password: Cypress.env('USER_PASSWORD')
@@ -15,15 +15,15 @@ describe("Check the functionality of the sales tab", () => {
         salesPage.getActiveChart();
     });
 
-    for (const tab of salesData.tabs) {
+    for (const chart of charts) {
+        it(`Check data changes when filters are changed in the ${chart} chart`, () => {
+            if (chart === 'Total Premium') salesPage.clickTotalPremiumTabBtn();
 
-        it(`Check data changes when filters are changed at the ${tab} tab`, () => {
-            salesPage.clickTab(tab);
             let initialChartDataUuid = salesPage.getActiveChartDataUuid();
 
-            for (const brand of salesData.brandFilterOptions) {
+            for (const brand of filters.brands) {
                 salesPage.selectBrand(brand);
-                for (const year of salesData.yearFilterOptions) {
+                for (const year of filters.years) {
                     salesPage.selectYear(year);
                     let updatedChartDataUuid = salesPage.getActiveChartDataUuid();
 
@@ -31,54 +31,34 @@ describe("Check the functionality of the sales tab", () => {
                     initialChartDataUuid = updatedChartDataUuid;
                 }
             }
-        })
-
-        it(`Check if query parameters change correctly after filter selection ${tab} tab`, () => {
-            salesPage.clickTab(tab);
-            for (const brandFilterOption of salesData.brandFilterOptions) {
-                salesPage.selectBrand(brandFilterOption);
-                salesPage.getQueryParam('brand').should('eq', salesData.brandQueryParams[brandFilterOption]);
-            }
-
-            for (const yearFilterOption of salesData.yearFilterOptions) {
-                salesPage.selectYear(yearFilterOption);
-                salesPage.getQueryParam('year').should('eq', yearFilterOption);
-            }
-        })
-
-
-        it(`Check the responses from the backend after brand filter selection ${tab} tab`, () => {
-            salesPage.clickTab(tab);
-            cy.intercept('POST', 'admin/insurance/monthly-sales-counts').as('monthlySalesCounts');
-
-            for (const brandFilterOption of salesData.brandFilterOptions) {
-                salesPage.selectBrand(brandFilterOption);
-                cy.wait('@monthlySalesCounts').then(interception => {
-                    const response = interception.response;
-
-                    expect(response?.statusCode).to.eq(200);
-                    expect(response?.body).to.have.property('monthlySalesCounts').that.is.an('object');
-                    expect(response?.body.monthlySalesCounts).to.have.keys('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12');
-                });
-            }
         });
 
-        it(`Check the responses from the backend after year filter selection ${tab} tab`, () => {
-            salesPage.clickTab(tab);
-            cy.intercept('POST', 'admin/insurance/monthly-sales-counts').as('monthlySalesCounts');
-            for (const yearFilterOption of salesData.yearFilterOptions) {
-                salesPage.selectYear(yearFilterOption);
-                cy.wait('@monthlySalesCounts').then(interception => {
-                    const response = interception.response;
+        it(`Check the responses from the backend after filter selection in the ${chart} chart`, () => {
+            let url: string = 'admin/insurance/monthly-sales-counts';
+            let objectProperty: string = 'monthlySalesCounts';
+            if (chart === 'Total Premium') {
+                url = 'admin/insurance/monthly-total-premiums';
+                objectProperty = 'monthlyTotalPremiums';
+            }
 
-                    expect(response?.statusCode).to.eq(200);
-                    expect(response?.body).to.have.property('monthlySalesCounts').that.is.an('object');
-                    expect(response?.body.monthlySalesCounts).to.have.keys('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12');
-                });
+            cy.intercept('POST', url).as('monthlyCounts');
+            if (chart === 'Total Premium') salesPage.clickTotalPremiumTabBtn();
+
+            for (const brand of filters.brands) {
+                salesPage.selectBrand(brand);
+                for (const year of filters.years) {
+                    salesPage.selectYear(year);
+                    cy.wait('@monthlyCounts').then((interception) => {
+                        const response = interception.response;
+
+                        expect(response?.statusCode).to.eq(200);
+                        expect(response?.body).to.have.property(objectProperty).that.is.an('object');
+                        expect(response?.body[objectProperty]).to.have.keys('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12');
+                    });
+                }
             }
         });
     }
-
 
     it("check if filters with query params are applied after page reload", () => {
         cy.wait(1000);

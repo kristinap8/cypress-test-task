@@ -2,7 +2,6 @@ import Page from './page';
 
 const activeChartColumn: string = '.ant-tabs-tabpane-active div[class="g2-tooltip"]';
 const activeChartCanvas: string = '.ant-tabs-tabpane-active canvas';
-const salesTab: string = 'div[data-node-key="sales"] div';
 const totalPremiumTab: string = 'div[data-node-key="premium"] div';
 const brandsDropdown: string = 'div[class*="Sales_brandSelect"]';
 const brandDropdownOption = (brandName: string) => `div[class*="select-item-option"][title="${brandName}"]`;
@@ -46,17 +45,9 @@ class SalesPage extends Page {
         this.getActiveChart();
     }
 
-    clickTab(tabName: string) {
-        switch (tabName) {
-            case 'number of sales':
-                super.clickElement(salesTab);
-                break;
-            case 'total premium':
-                super.clickElement(totalPremiumTab);
-                break;
-            default:
-                break;
-        }
+    clickTotalPremiumTabBtn() {
+        super.clickElement(totalPremiumTab);
+        cy.wait(250);
     }
 }
 

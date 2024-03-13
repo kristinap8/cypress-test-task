@@ -4,6 +4,15 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 module.exports = defineConfig({
+  reporter: "cypress-mochawesome-reporter",
+  video: false,
+  reporterOptions: {
+    reportDir: "cypress/reports",
+    charts: true,
+    reportPageTitle: "Grace report",
+    embeddedScreenshots: true,
+    inlineAssets: true
+  },
   env: { ...process.env },
   e2e: {
     setupNodeEvents(on, config) {
