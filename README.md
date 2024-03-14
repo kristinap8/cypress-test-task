@@ -9,7 +9,9 @@
 
 ## Summary of Repo
 
-This repository contains automated test cases for [Grace](https://dev-admin.grace-technology.io/#) implemented using Cypress. 
+This repository contains automated test cases for [Grace](https://dev-admin.grace-technology.io/) implemented using Cypress. 
+The report generated from the test runs is deployed to [GitHub Pages](https://kristinap8.github.io/cypress-test-task/).
+Additionally, Slack notifications have been enabled. You can join the [Slack channel]((https://join.slack.com/t/grace-report/shared_invite/zt-2eqkl5b1u-pNvms2H26ao71Yb00DRb0w)) for updates and notifications.
 
 ## Requirements
 
@@ -42,4 +44,10 @@ npm install
 
 ```bash
 npm run cy:run
+```
+
+2. Open generated report:
+
+```bash
+npm run cy:open:report
 ```
