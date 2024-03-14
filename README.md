@@ -22,8 +22,7 @@ Additionally, Slack notifications have been enabled. You can join the [Slack cha
 1. Clone this repository:
 
 ```bash
-git clone
-https://github.com/kristinap8/cypress-test-task.git
+git clone https://github.com/kristinap8/cypress-test-task.git
 ```
 
 2. Navigate to the project directory:
