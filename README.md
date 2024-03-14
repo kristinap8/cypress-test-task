@@ -10,13 +10,10 @@
 ## Summary of Repo
 
 This repository contains automated test cases for [Grace](https://dev-admin.grace-technology.io/#) implemented using Cypress. 
-The github workflow is implemented in the additional branch.
 
 ## Requirements
 
-- Node.js: Ensure you have Node.js installed.
-- Cypress: Install Cypress by running `npm install cypress --save-dev`.
-- Other dependencies: Check the `package.json` file for additional dependencies.
+- Cypress: Install Cypress by running `npm install cypress --save-dev` and check the `package.json` file for additional dependencies.
 
 ## Steps to Install
 
@@ -41,7 +38,7 @@ npm install
 
 ## Steps to Launch and Create a Report:
 
-1. Run tests with default browser:
+1. Run tests with default browser and generate the html report:
 
 ```bash
 npm run cy:run
