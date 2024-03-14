@@ -56,11 +56,11 @@ npm run cy:open:report
 
 ## Questions
 
-1. What makes a good automation QA?
+1. What makes a good automation QA?<br/>
 A good automation QA engineer excel in coding and debugging, unraveling software mysteries with precisionis. They're also communication gurus, bridging gaps between teams with clarity and finesse. Always adapting and learning, they're the backbone of quality assurance, ensuring software sails smoothly through the digital waves.
 
-2. What I love and don’t love about automation QA?
+2. What I love and don’t love about automation QA?<br/>
 I love the thrill of solving puzzles, the satisfaction of uncovering elusive bugs, and the power of automation to streamline repetitive tasks. However, I sometimes find the challenge of maintaining test scripts across different environments and platforms a bit daunting. Yet, the joy of seeing the impact of well-designed automated tests on software quality far outweighs any frustrations.
 
-3. Why I think I am a great QA engineer?
+3. Why I think I am a great QA engineer?<br/>
 I believe I am a great QA engineer because I possess a unique blend of technical expertise, analytical thinking, and a passion for quality. My attention to detail ensures that no defect goes unnoticed, while my communication skills allow me to effectively collaborate with cross-functional teams. Above all, my dedication to delivering high-quality software drives me to go above and beyond in every aspect of my work.
